@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Practice 1
 
 ## Python Basics
@@ -13,3 +14,6 @@
 9. Strings
 
 
+=======
+# group2_SadyrtinovaMilana
+>>>>>>> 8533e06e12e4e1a1cedce64bc9b35b59a935e840
