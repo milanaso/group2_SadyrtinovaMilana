@@ -18,8 +18,6 @@ class MickeyClock:
 
     def update(self):
         now = datetime.now()
-        # The minute hand advances with minutes and seconds; the second hand
-        # advances once each second.
         self.minute_angle = (now.minute + now.second / 60) * 6
         self.second_angle = now.second * 6
         self.time_text = now.strftime("%H:%M:%S")
@@ -27,11 +25,9 @@ class MickeyClock:
     def draw_hand(self, surface, angle, length, color):
         hand = pygame.transform.smoothscale(self.hand_image, (18, length))
         rotated = pygame.transform.rotate(hand, -angle)
-        # Keep the bottom center of the rotated image attached to the clock pivot.
         pivot = pygame.Vector2(self.center)
         original_pivot = pygame.Vector2(hand.get_width() / 2, hand.get_height())
         offset = pygame.Vector2(rotated.get_width() / 2, rotated.get_height())
-        # Rotation changes the location of the pivot inside the new rectangle.
         rotated_pivot = pygame.Vector2(rotated.get_rect().center)
         rotated_pivot.y += rotated.get_height() / 2 - original_pivot.y
         rotated_pivot = pygame.Vector2(rotated.get_width() / 2, rotated.get_height() / 2)
@@ -41,13 +37,11 @@ class MickeyClock:
         surface.blit(rotated, rect)
 
     def draw(self, surface):
-        # Mickey ears and head.
         pygame.draw.circle(surface, (25, 25, 25), (220, 205), 95)
         pygame.draw.circle(surface, (25, 25, 25), (480, 205), 95)
         pygame.draw.circle(surface, (25, 25, 25), self.center, self.face_radius)
         pygame.draw.circle(surface, (255, 255, 255), self.center, self.face_radius - 12)
 
-        # Clock markings.
         for number in range(12):
             angle = math_angle = number * 30
             import math
@@ -58,9 +52,8 @@ class MickeyClock:
                    self.center[1] + 160 * math.sin(radians))
             pygame.draw.line(surface, (35, 35, 35), start, end, 5)
 
-        # The right hand shows minutes; the left hand shows seconds.
         self.draw_hand(surface, self.minute_angle, 115, (30, 30, 30))
-        self.draw_hand(surface, -self.second_angle, 145, (210, 40, 40))
+        self.draw_hand(surface, self.second_angle, 145, (210, 40, 40))
         pygame.draw.circle(surface, (30, 30, 30), self.center, 11)
 
         text = self.font.render(self.time_text, True, (20, 20, 20))
