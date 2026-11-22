@@ -3,7 +3,6 @@ from pathlib import Path
 
 import pygame
 
-
 class MickeyClock:
     def __init__(self):
         self.center = (350, 390)
